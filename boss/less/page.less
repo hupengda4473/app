@@ -1,0 +1,1849 @@
+/*be created by DongLei at 13/12/2015*/
+@charset "UTF-8";
+@width: `document.documentElement.clientWidth`;
+@height: `document.documentElement.clientHeight`;
+@import "reset"; //引用格式化页面样式
+@import "demo";
+@import "style";
+/**********************************************************************************************************************/
+.jsInputBox {
+  overflow: hidden;
+}
+
+.bodyBox {
+  overflow: hidden;
+}
+
+/*底部导航栏*/
+.footer {
+  width: 100%;
+  height: 112px;
+  border-top: 1px solid #bdbdbd;
+  position: relative;
+  z-index: 9999;
+  background-color: #f7f7f7;
+  .footerList {
+    width: 100%;
+    height: 112px;
+    overflow: hidden;
+    .footerBtn {
+      float: left;
+      width: (@width/4)*1px;
+      font-size: @font20;
+      color: #bdbdbd;
+      line-height: 158px;
+      text-align: center;
+      background-color: #f7f7f7;
+      &.restaurantBtn {
+        background: url("../images/ico_12-1.png") center top no-repeat;
+        &:active {
+          color: #00bcd4;
+          background: darken(#f7f7f7, 6%) url("../images/ico_12.png") center top no-repeat;
+        }
+        &.active {
+          color: #00bcd4;
+          background: url("../images/ico_12.png") center top no-repeat;
+        }
+      }
+      &.findBtn {
+        background: url("../images/ico_13.png") center top no-repeat;
+        &:active {
+          color: #00bcd4;
+          background: darken(#f7f7f7, 6%) url("../images/ico_13-1.png") center top no-repeat;
+        }
+        &.active {
+          color: #00bcd4;
+          background: url("../images/ico_13-1.png") center top no-repeat;
+        }
+      }
+      &.serviceBtn {
+        background: url("../images/ico_14.png") center top no-repeat;
+        &:active {
+          color: #00bcd4;
+          background: darken(#f7f7f7, 6%) url("../images/ico_14-1.png") center top no-repeat;
+        }
+        &.active {
+          color: #00bcd4;
+          background: url("../images/ico_14-1.png") center top no-repeat;
+        }
+      }
+      &.accountBtn {
+        background: url("../images/ico_15.png") center top no-repeat;
+        &:active {
+          color: #00bcd4;
+          background: darken(#f7f7f7, 6%) url("../images/ico_15-1.png") center top no-repeat;
+        }
+        &.active {
+          color: #00bcd4;
+          background: url("../images/ico_15-1.png") center top no-repeat;
+        }
+      }
+    }
+  }
+}
+
+/*登录页*/
+#mainRegisterPage {
+  .mainRegisterPageCont {
+    width: @width * 1px;
+    height: @height * 1px;
+    //background-color: @color;
+    background: url("../images/bg.png") 100% 100% no-repeat;
+    overflow: auto;
+    .areaBtn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      height: 72px;
+      .ico {
+        width: 64px;
+        height: 72px;
+        //background: url("../images/bossAppIco.png") no-repeat 0 -1952px;
+        //background: url("../images/address.png") no-repeat center;
+        float: left;
+      }
+      .area {
+        height: 56px;
+        line-height: 58px;
+        float: left;
+        font-size: @font24;
+        color: #00bcd4;
+        border-bottom: 2px solid #00bcd4;
+        margin-right: 16px;
+      }
+      &:active {
+        background-color: darken(#1cb1c7, 12%);
+      }
+    }
+    .settingBtn {
+      width: 72px;
+      height: 72px;
+      background: url("../images/bossAppIco.png") no-repeat -16px -1746px;
+      &:active {
+        background-color: darken(@color, 12%);
+      }
+      position: absolute;
+      top: 12px;
+      right: 16px;
+    }
+    .logo {
+      display: block;
+      margin: 160px auto 48px;
+      width: 224px;
+      height: 224px;
+      //margin-top: 96px;
+      //margin-left: (@width - 370) / 2px;
+      //margin-bottom: 48px;
+    }
+    input {
+      display: block;
+      width: 528px;
+      margin-top: 48px;
+      margin-left: 96px;
+      height: 80px;
+      border-bottom: 2px solid #999999;
+      background: none;
+      font-size: @font44;
+      color: #999999;
+      text-indent: 96px;
+      border-radius: 0;
+      /* &.userName {
+         background: url("../images/bossAppIco.png") no-repeat 0 0;
+       }*/
+      &.password {
+        background: url("../images/lock.png") 10px no-repeat;
+      }
+      &.passwordNew {
+        width: 370px;
+        text-indent: 0px;
+        font-size: 28px;
+      }
+    }
+    .userNameBox {
+      height: auto;
+      overflow: hidden;
+      margin-top: 156px;
+      .areaCode {
+        width: 80px;
+        height: 80px;
+        font-size: @font24;
+        color: #999999;
+        line-height: 80px;
+        float: left;
+        margin-top: 48px;
+        margin-left: 96px;
+        border-bottom: 2px solid #999999;
+        position: relative;
+        //background: url("../images/down.png") 50px no-repeat;
+        &:before {
+          position: absolute;
+          content: "";
+          bottom: 24px;
+          top: 24px;
+          left: 0;
+          right: 0;
+          border-right: 2px solid #999999;
+
+        }
+
+      }
+      input {
+        display: block;
+        width: 448px;
+        margin-top: 48px;
+        margin-left: 0;
+        height: 80px;
+        border-bottom: 2px solid #999999;
+        background: none;
+        font-size: @font44;
+        color: #999999;
+        text-indent: 15px;
+        border-radius: 0;
+        float: left;
+        /*  &.userName {
+            background: url("../images/bossAppIco.png") no-repeat 0 0;
+          }
+          &.password {
+            background: url("../images/bossAppIco.png") no-repeat 0 -80px;
+          }*/
+      }
+    }
+    .passwordBox {
+      position: relative;
+      &:before {
+        position: absolute;
+        content: "";
+        bottom: 24px;
+        top: 72px;
+        left: 176px;
+        border-right: 2px solid #999999;
+
+      }
+    }
+    .rememberPwdBox {
+      height: 32px;
+      margin: 0 96px;
+      padding: 32px 0;
+      .buttonBox {
+        float: left;
+        font-size: @font24;
+        color: #999999;
+        div {
+          float: left;
+        }
+        .register {
+          float: left;
+          padding: 0 32px 0 0;
+        }
+        .retrieve {
+          float: left;
+          padding: 0 0 0 32px;
+        }
+      }
+      .rememberPwd {
+        float: right;
+        line-height: 32px;
+        color: #999999;
+        font-size: @font24;
+      }
+      .checkIco {
+        width: 32px;
+        height: 32px;
+        background-color: #fff;
+        border-radius: 2px;
+        margin-right: 16px;
+        float: right;
+        &.active {
+          background: url("../images/bossAppIco.png") no-repeat 0 -160px #ff5722;
+        }
+      }
+    }
+    .registerBtn {
+      height: 72px;
+      margin: (@height - 1168)*1px 116px 0;
+      border-radius: 4px;
+      border: 2px solid #fff;
+      line-height: 72px;
+      color: #fff;
+      text-align: center;
+      font-size: @font28;
+      background-color: #ff5722;
+      &:active {
+        background-color: darken(#ff5722, 12%);
+      }
+    }
+    .IPSetBtn {
+      margin-top: 96px;
+      margin-right: 40px;
+      height: 48px;
+      border-bottom: 2px solid #ffeb3b;
+      line-height: 48px;
+      color: #ffeb3b;
+      font-size: @font20;
+      float: right;
+      width: 72px;
+      text-align: center;
+      &:active {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+      }
+    }
+    .versionBar {
+      width: 100%;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+      font-size: @font28;
+      color: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-top: (@height - 112) * 1px;
+    }
+    .fastLanding {
+      width: 100%;
+      height: 154px;
+      line-height: 154px;
+      text-align: center;
+      font-size: @font24;
+      color: #999999;
+      /*
+      position: absolute;
+      top: 0;
+      left: 0;*/
+      //margin-top:(@height - 112) * 1px;
+    }
+    .jsInputBoxNew {
+      display: none;
+      overflow: hidden;
+      .passwordNew {
+        display: block;
+        width: 370px;
+        margin-top: 68px;
+        margin-left: 96px;
+        height: 60px;
+        border-bottom: 2px solid #999999;
+        background: none;
+        font-size: @font44;
+        color: #999999;
+        text-indent: 96px;
+        border-radius: 0;
+        float: left;
+        /* &.userName {
+          background: url("../images/bossAppIco.png") no-repeat 0 0;
+        }*/
+        &.passwordNew {
+          //background: url("../images/lock.png") 10px no-repeat;
+          text-indent: 0px;
+          font-size: 28px;
+        }
+      }
+      .getVerificationCodeNew {
+        width: 158px;
+        height: 55px;
+        margin-top: 73px;
+        float: left;
+        background-color: #00bcd4;
+        font-size: 24px;
+        line-height: 55px;
+        color: white;
+        text-align: center;
+        border-bottom: 2px solid #999999;
+      }
+    }
+    .registerBtnNew {
+      height: 72px;
+      margin: 135px 116px 0;
+      border-radius: 4px;
+      border: 2px solid #fff;
+      line-height: 72px;
+      color: #fff;
+      text-align: center;
+      font-size: @font28;
+      background-color: #ff5722;
+
+      &:active {
+        background-color: darken(#ff5722, 12%);
+      }
+    }
+  }
+  .maskLayerStyle {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .pwdWrongPopupLayer {
+    display: none;
+    .popUpLayerStyle(624, 192);
+    border-radius: 12px;
+    .title {
+      height: 95px;
+      line-height: 95px;
+      border-bottom: 1px solid #bdbdbd;
+      text-align: center;
+      color: #2c2c2c;
+      font-size: @font32;
+    }
+    .true {
+      height: 96px;
+      line-height: 96px;
+      text-align: center;
+      color: #ff5722;
+      font-size: @font32;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      &:active {
+        background-color: darken(#fff, 12%);
+      }
+    }
+  }
+  .chooseAreaPopupLayer {
+    display: none;
+    width: 592px;
+    max-height: 594px;
+    padding-bottom: 16px;
+    border-radius: 12px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    margin-top: -305px;
+    left: 64px;
+    z-index: 100;
+    .title {
+      height: 112px;
+      border-bottom: 1px solid #bdbdbd;
+      margin: 0 48px;
+      text-align: center;
+      font-size: @font32;
+      color: #404040;
+      line-height: 112px;
+    }
+    .areaList {
+      max-height: 463px;
+      overflow: auto;
+      .areaInfo {
+        .cont {
+          height: 96px;
+          border-bottom: 1px solid #e0e0e0;
+          line-height: 96px;
+          text-align: center;
+          margin: 0 48px;
+          font-size: @font28;
+          color: #212121;
+        }
+        &.active {
+          .cont {
+            color: #1cb1c7;
+          }
+        }
+        &:active {
+          background-color: darken(#fff, 12%);
+        }
+      }
+    }
+  }
+  .setLanguagePopupLayer {
+    position: absolute;
+    top: 12px;
+    right: 88px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 4px 1px #008c9e;
+    z-index: 100;
+    .languageInfo {
+      height: 112px;
+      width: 224px;
+      .language {
+        line-height: 112px;
+        font-size: @font24;
+        color: #969696;
+        margin-left: 32px;
+        float: left;
+      }
+      .checkedIco {
+        display: none;
+        width: 24px;
+        height: 112px;
+        background: url("../images/bossAppIco.png") no-repeat 0 -1840px;
+        margin-right: 32px;
+        float: right;
+      }
+      &.active {
+        .language {
+          color: #455ede;
+        }
+        .checkedIco {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+/*店况页*/
+#shopStatePage {
+  height: 100%;
+  .mainIndexPageCont {
+    width: @width * 1px;
+    height: calc(~"100%" - 113px);
+    .topBox {
+      height: 480px;
+      background-color: #00bcd4;
+      box-shadow: 0 2px 2px #008b9d;
+      &.active {
+        height: 544px;
+        .CueBar {
+          display: block;
+        }
+      }
+      .CueBar {
+        background-color: #fff175;
+        display: none;
+        height: auto;
+        overflow: hidden;
+        .ico {
+          float: left;
+          width: 96px;
+          height: 64px;
+          background: url("../images/ico_61.png") center no-repeat;
+        }
+        .content {
+          width: (@width - 192)*1px;
+          float: left;
+          padding: 8px 0;
+          line-height: 48px;
+          font-size: @font24;
+          background-color: #fff175;
+        }
+        .goIco {
+          width: 96px;
+          height: 64px;
+          float: right;
+          background: url("../images/ico-9.png") center top -16px no-repeat;
+        }
+        &:active {
+          background-color: darken(#fff175, 6%);
+        }
+      }
+      .titleBox {
+        height: 112px;
+        .backBtn {
+          width: 104px;
+          height: 112px;
+          background: url("../images/home.png") no-repeat center;
+          &:active {
+            background-color: darken(@color, 12%);
+          }
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        .title {
+          //overflow: hidden;
+          .overHide;
+          padding: 0 104px;
+          line-height: 112px;
+          text-align: center;
+          font-size: @font36;
+          color: #fff;
+          .status {
+            line-height: 112px;
+            //font-size: @font36;
+            color: #ffeb3b;
+            &.active {
+              color: #969696;
+            }
+          }
+        }
+        .refreshBtn {
+          width: 100px;
+          height: 112px;
+          background: url("../images/bossAppIco.png") no-repeat 0 -2024px;
+          &:active {
+            background-color: darken(@color, 12%);
+          }
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+      .todayTransBox {
+        margin-left: 30px;
+        .dayMoneyTitle {
+          height: 80px;
+          line-height: 80px;
+          font-size: @font24;
+          color: #fff;
+        }
+        .dayMoney {
+          height: 144px;
+          line-height: 112px;
+          font-size: 7.2em;
+          color: #fff;
+        }
+        &:active {
+          background-color: darken(#00bcd4, 6%);
+        }
+      }
+      .sumMoneyBox {
+        width: 370px;
+        height: 96px;
+        padding-left: 32px;
+        float: left;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        .title {
+          font-size: 2em;
+          color: #C9EDDB;
+        }
+        .money {
+          font-size: 2.8em;
+          color: #fff;
+        }
+        &:active {
+          background-color: darken(#00bcd4, 6%);
+        }
+      }
+      .preDayMoneyBox {
+        height: 144px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 0 32px;
+        border-top: 1px solid #FFFFFF;
+        &:active {
+          background-color: darken(#00bcd4, 6%);
+        }
+        .title {
+          font-size: 2em;
+          color: #FFFFFF;
+          padding: 16px 0 0;
+          line-height: 48px;
+        }
+        .money {
+          font-size: 2.8em;
+          color: #fff;
+          line-height: 48px;
+        }
+      }
+    }
+    .mainIndexPageContContent {
+      height: calc(~"100%" - 482px);
+      overflow: auto;
+      .touch;
+      .functionBox {
+        height: auto;
+        background-color: #FFFFFF;
+        li {
+          padding: 16px;
+          .cpl-Display;
+          border-bottom: 1px solid #dddddd;
+          div {
+            float: left;
+            .cpl-flex(1);
+            font-size: 28px;
+            color: rgba(0, 0, 0, 0.87);
+            line-height: 48px;
+            padding: 112px 0 24px;
+            text-align: center;
+
+            &:nth-child(2) {
+              border-left: 1px solid #dddddd;
+              border-right: 1px solid #dddddd;
+            }
+            &.equipment {
+              background: url("../images/ico_53.png") center top 32px no-repeat;
+            }
+            &.ReportForm {
+              background: url("../images/ico_54.png") center top 32px no-repeat;
+            }
+            &.personnel {
+              background: url("../images/ico_55.png") center top 32px no-repeat;
+            }
+            &.TheKitchen {
+              background: url("../images/ico_56.png") center top 32px no-repeat;
+            }
+            &.Member {
+              background: url("../images/ico_57.png") center top 32px no-repeat;
+            }
+            &.WeeklyWater {
+              background: url("../images/ico_58.png") center top 32px no-repeat;
+            }
+          }
+        }
+      }
+      .bottomList {
+        height: auto;
+        overflow: hidden;
+        border-top: 1px solid #d6d6d6;
+        li.itemBox {
+          background: #fff;
+          padding: 30px 0 0;
+          overflow: hidden;
+          margin-bottom: 16px;
+          &:nth-child(1) {
+            margin-top: 16px;
+          }
+          .topTitle {
+            font-size: 3.2em;
+            font-weight: 500;
+            margin-bottom: 32px;
+            border-left: 6px solid #00bcd4;
+            padding: 0 0 0 32px;
+            margin-left: 32px;
+            /*
+            border-bottom:1px solid #e0e0e0;
+            border-top:1px solid #d6d6d6;*/
+          }
+          ul.item {
+            width: 100%;
+            overflow: hidden;
+            //margin-top: -50px;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #d6d6d6;
+            li {
+              padding: 16px 0 16px 30px;
+              box-sizing: border-box;
+              width: 50%;
+              float: left;
+              height: 192px;
+              border-bottom: 1px solid #e0e0e0;
+              &:nth-child(2n-1) {
+                position: relative;
+                &:before {
+                  position: absolute;
+                  content: "";
+                  right: 0;
+                  top: 16px;
+                  bottom: 16px;
+                  border-right: 1px solid #e0e0e0;
+                }
+              }
+              .title {
+                display: block;
+                font-size: 2.4em;
+                color: rgba(0, 0, 0, 0.56);
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                line-height: 64px;
+                /* &:nth-child(2n-1){
+                   border-right:1px solid #e0e0e0;
+                 }*/
+              }
+              .content {
+                font-size: 3.2em;
+                display: block;
+                line-height: 80px;
+                &:nth-child(2n-1) {
+                  border-right: 1px solid #e0e0e0;
+                }
+              }
+              &.wrong {
+                .content {
+                  color: #fe5722;
+                }
+              }
+              &:nth-child(5) {
+                border-bottom: none;
+              }
+              &:nth-child(6) {
+                border-bottom: none;
+              }
+              &.salesOfDishes, &.purchaseOfTotalAmount {
+                width: 400px;
+                height: 168px;
+                background-color: #f0f0f0;
+                padding: 16px 0 16px 8px;
+                margin: 16px 0 8px 16px;
+                border-right: none;
+                border-bottom: none;
+              }
+              &.purchaseOfTotalAmount {
+                margin-top: 8px !important;
+              }
+              &.todaySFoodConsumption {
+                width: 400px;
+                height: 168px;
+                background-color: #f0f0f0;
+                padding: 16px 0 16px 8px;
+                margin: 8px 0 16px 16px;
+                border-right: 1px solid #FFFFFF;
+                border-bottom: none;
+              }
+              &.rawMaterialWasteRate {
+                width: 304px;
+                height: 352px;
+                float: right;
+                clear: both;
+                margin-top: -176px;
+                position: relative;
+                border-bottom: none;
+                .title {
+                  font-size: 3.2em;
+                  //padding-top:96px;
+                  padding-top: 201px;
+                }
+                .content {
+                  font-size: 6.2em;
+
+                }
+                .Filler {
+                  width: 0;
+                  height: 0;
+                  position: absolute;
+                  //border-width:176px 56px 176px 56px;
+                  border-width: 273px 56px 273px 56px;
+                  border-style: solid;
+                  border-color: transparent #FFFFFF #FFFFFF transparent;
+                  left: -111px;
+                  top: 0;
+                  z-index: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .refreshRemind {
+    width: 520px;
+    height: 72px;
+    position: absolute;
+    left: 50%;
+    bottom: 120px;
+    margin-left: -260px;
+    line-height: 72px;
+    text-align: center;
+    color: #fff;
+    font-size: @font24;
+    background-color: #404040;
+    border-radius: 8px;
+    z-index: 2;
+  }
+}
+
+/*发现页*/
+#discoveryPage {
+  height: 100%;
+  .discoveryPageCont {
+    height: calc(~"100%" - 225 * 1px);
+    .navList {
+      height: auto;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      .navBtn {
+        float: left;
+        width: @width/3*1px;
+        padding: 24px 0;
+        line-height: 48px;
+        font-size: @font28;
+        color: rgba(0, 0, 0, 0.56);
+        text-align: center;
+        position: relative;
+        &.active {
+          color: rgba(0, 0, 0, 0.87);
+          &:before {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 80px;
+            right: 80px;
+            border-bottom: 4px solid #00bcd4;
+          }
+        }
+
+        &:active {
+          color: rgba(0, 0, 0, 0.87);
+          &:before {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 80px;
+            right: 80px;
+            border-bottom: 4px solid #00bcd4;
+          }
+        }
+      }
+    }
+    .contentPurchase, .contentAdvanced {
+      height: calc(~"100%" - 96 * 1px);
+      overflow: auto;
+      display: none;
+      .touch;
+      .contentList {
+        display: none;
+        width: (@width - 128px);
+        height: auto;
+        margin: 80px auto auto;
+        overflow: hidden;
+        .contentListBtn {
+          float: left;
+          width: calc(~"50%" - 1 * 1px);
+          height: 360px;
+          font-size: @font32;
+          color: #FFFFFF;
+          overflow: hidden;
+          &.reportForm {
+            background: #00bcd4 url("../images/ico-17.png") 48px 48px no-repeat;
+            margin-right: 1px;
+            &:active {
+              background-color: darken(#00bcd4, 6%);
+            }
+          }
+          &.takeInventory {
+            background: #00bcd4 url("../images/ico-18.png") 48px 48px no-repeat;
+            &:active {
+              background-color: darken(#00bcd4, 6%);
+            }
+          }
+          &.purchasing {
+            background: #00bcd4 url("../images/ico-19.png") 48px 48px no-repeat;
+            margin-right: 1px;
+            margin-top: 1px;
+            &:active {
+              background-color: darken(#00bcd4, 6%);
+            }
+          }
+          &.setUp {
+            background: #00bcd4 url("../images/ico-20.png") 48px 48px no-repeat;
+            margin-top: 1px;
+            &:active {
+              background-color: darken(#00bcd4, 6%);
+            }
+          }
+          p {
+            width: auto;
+            overflow: hidden;
+            padding: 224px 48px 0;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+          }
+        }
+      }
+      .discoveryListBox {
+        overflow: hidden;
+        .discoveryList {
+          overflow: hidden;
+          margin: 32px 32px 0;
+          background-color: #fff;
+          border-radius: 16px;
+          .icoInfo {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #41cddf;
+            margin: 39px;
+            border-radius: 50%;
+            //box-shadow: 0 0 0 12px #fff;
+            position: relative;
+            background: url("../images/ico_33.png") no-repeat center #d9f5f9;
+            float: left;
+            &:before {
+              position: absolute;
+              content: '';
+              top: -8px;
+              left: -8px;
+              border: 1px solid #41cddf;
+              border-radius: 50%;
+              width: 114px;
+              height: 114px;
+            }
+            &.accountManage {
+              background: url("../images/ico_76.png") no-repeat center #d9f5f9;
+            }
+          }
+          .name {
+            .p_style(180px, @font32, rgba(0, 0, 0, 0.87), left, none, none);
+            .overHide;
+          }
+          /*&:nth-child(2){
+            .icoInfo{
+              background: url("../images/ico_34.png") no-repeat center #d9f5f9;
+            }
+          }*/
+          &.receipt {
+            .icoInfo {
+              background: url("../images/ico_90.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.spaceCleaning {
+            .icoInfo {
+              background: url("../images/ico_91.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.PurchaseOrder {
+            .icoInfo {
+              background: url("../images/ico_79.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.PurchasingHistory {
+            .icoInfo {
+              background: url("../images/ico_80.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.takeInventory {
+            .icoInfo {
+              background: url("../images/ico_35.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.purchaseStorage {
+            .icoInfo {
+              background: url("../images/ico_36.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.PurchasingReview {
+            .icoInfo {
+              background: url("../images/ico_82.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.setUp {
+            .icoInfo {
+              background: url("../images/ico_37.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.management {
+            .icoInfo {
+              background: url("../images/icoJ_manger.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.Function_sharing {
+            .icoInfo {
+              background: url("../images/ico_38.png") no-repeat center #d9f5f9;
+            }
+          }
+          &.restaurant{
+            .icoInfo {
+              background: url("../images/restaurantInformation.png") no-repeat center #d9f5f9;
+            }
+          }
+          &:active {
+            background-color: darken(#fff, 12%);
+          }
+        }
+      }
+      &.active {
+        display: block;
+      }
+    }
+    .contentNews {
+      height: calc(~"100%" - 96 * 1px);
+      overflow: auto;
+      display: none;
+      .touch;
+      .remind {
+        width: (@width - 48)*1px;
+        .time {
+          .p_style(96px, @font24, rgba(0, 0, 0, 0.56), center, 0, 0);
+          width: @width *1px;
+        }
+        .tips {
+          padding-left: 28px;
+          .cpl-Display;
+          img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 20px;
+            float: left;
+          }
+          .boom {
+            //overflow: hidden;
+            border-radius: 8px;
+            background-color: #FFFFFF;
+            position: relative;
+            .cpl-flex(1);
+            .title {
+              .p_style(50px, @font32, rgba(0, 0, 0, 0.56), left, 0, 24px);
+              height: auto;
+            }
+            .MCE {
+              padding-right: 0;
+              border-bottom-left-radius: 8px;
+              border-bottom-right-radius: 8px;
+              &:before {
+                display: block;
+                top: 0;
+              }
+            }
+            &:before {
+              content: "";
+              width: 0;
+              height: 0;
+              border-top: 12px solid transparent;
+              border-bottom: 12px solid transparent;
+              border-right: 12px solid #FFFFFF;
+              position: absolute;
+              left: -12px;
+              top: 20px;
+            }
+          }
+        }
+        &:last-child {
+          margin-bottom: 32px;
+        }
+      }
+      &.active {
+        display: block;
+      }
+    }
+  }
+}
+
+/*账户页*/
+#accountPage {
+  height: 100%;
+  .accountPageCont {
+    height: calc(~"100%" - 225 * 1px);
+    overflow: auto;
+    .touch;
+    background-color: #f4f4f4;
+    .headTitle {
+      height: auto;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #b5b5b5;
+      img {
+        display: block;
+        width: 120px;
+        height: 120px;
+        float: left;
+        border-radius: 50%;
+        margin: 24px;
+
+      }
+      //wgp**************************************
+      .word {
+        overflow: hidden;
+        .headName {
+          //padding:46px 32px 0px 0;
+          line-height: 169px;
+          font-size: @font32;
+          color: rgba(0, 0, 0, 0.87);
+        }
+        .preAccountNumber {
+          padding: 0px 0px 0px 0;
+          line-height: 48px;
+          width: 125px;
+          font-size: @font24;
+          color: rgb(103, 206, 223);
+          float: left;
+          border-bottom: 1px solid rgba(103, 206, 223, 0.87);
+        }
+        .perfect {
+          padding: 0px 0px 0px 24px;
+          line-height: 48px;
+          font-size: @font20;
+          color: rgba(153, 153, 153, 0.87);
+          float: left;
+        }
+
+      }
+    }
+    .radiusBox {
+      height: auto;
+      overflow: hidden;
+      background-color: #fff;
+      border-top: 1px solid #bdbdbd;
+      border-bottom: 1px solid #9f9f9f;
+      margin-top: 32px;
+      .radiusBtn {
+        height: 113px;
+        position: relative;
+        .cpl-Display;
+        &:before {
+          position: absolute;
+          content: "";
+          bottom: 0;
+          left: 0;
+          right: 0;
+          border-bottom: 1px solid #e0e0e0;
+        }
+        &:last-child:before {
+          display: none;
+        }
+        .title {
+          height: 111px;
+          line-height: 112px;
+          font-size: @font28;
+          color: #404040;
+          margin-left: 40px;
+          //border-bottom: 1px solid #e0e0e0;
+          .cpl-flex(1);
+        }
+        .stat {
+          height: 95px;
+          line-height: 96px;
+          font-size: @font18;
+          color: #000;
+          text-align: right;
+          //padding-right: 32px;
+          border-bottom: 1px solid #e0e0e0;
+          //.cpl-flex(1);
+        }
+        .goIco {
+          width: 112px;
+          height: 112px;
+          background: url('../images/ico-9.png') right top 8px no-repeat;
+        }
+        &:active {
+          background-color: darken(#FFFFFF, 6%);
+        }
+      }
+      /*.info:last-child {
+        .title {
+          border-bottom: 0;
+        }
+        .stat {
+          border-bottom: 0;
+        }
+      }*/
+    }
+  }
+}
+
+/*服务页*/
+#servicePage, #userPage, #restaurantInformationSettingPage {
+  height: 100%;
+  .servicePageCont {
+    height: calc(~"100%" - 225 * 1px);
+    overflow: auto;
+    .touch;
+    background-color: #f4f4f4;
+    .serviceList {
+      height: auto;
+      overflow: hidden;
+      background-color: #fff;
+      border-top: 1px solid #bdbdbd;
+      border-bottom: 1px solid #9f9f9f;
+      .serviceBtn {
+        height: 112px;
+        position: relative;
+        .cpl-Display;
+        &:before {
+          position: absolute;
+          content: "";
+          bottom: 0;
+          left: 0;
+          right: 0;
+          border-bottom: 1px solid #e0e0e0;
+        }
+        &:last-child:before {
+          display: none;
+        }
+        .title {
+          height: 111px;
+          line-height: 112px;
+          font-size: @font28;
+          color: #404040;
+          margin-left: 40px;
+          //border-bottom: 1px solid #e0e0e0;
+          .cpl-flex(1);
+        }
+        .stat {
+          height: 95px;
+          line-height: 96px;
+          font-size: @font18;
+          color: #000;
+          text-align: right;
+          //padding-right: 32px;
+          border-bottom: 1px solid #e0e0e0;
+          //.cpl-flex(1);
+        }
+        .goIco {
+          width: 112px;
+          height: 112px;
+          background: url('../images/ico-9.png') right top 8px no-repeat;
+        }
+        &:active {
+          background-color: darken(#FFFFFF, 6%);
+        }
+      }
+      /*.info:last-child {
+        .title {
+          border-bottom: 0;
+        }
+        .stat {
+          border-bottom: 0;
+        }
+      }*/
+    }
+  }
+  &#userPage, &#restaurantInformationSettingPage {
+    .servicePageCont {
+      height: calc(~"100%" - 112 * 1px);
+    }
+    .ico {
+      width: 104px;
+      height: 104px;
+      &.userMessage {
+        background: url("../images/ico_72.png") no-repeat center;
+      }
+      &.punchCard {
+        background: url("../images/ico_73.png") no-repeat center;
+      }
+      &.userAndOrder {
+        background: url("../images/ico_74.png") no-repeat center;
+      }
+      &.userAndCp {
+        background: url("../images/ico_75.png") no-repeat center;
+      }
+      &.punchCardTime {
+        background: url("../images/ico_78.png") no-repeat center;
+      }
+    }
+  }
+}
+
+/*异常订单页*/
+#subAbnormalOrderPage {
+  .date {
+    height: 112px;
+    line-height: 112px;
+    padding: 0 32px;
+    color: #0097a7;
+    background-color: #fff;
+    font-size: @font32;
+  }
+  .subAbnormalOrderPageCont {
+    margin-top: 16px;
+    width: @width * 1px;
+    height: (@height - 240) * 1px;
+    overflow: auto;
+    .info {
+      height: 96px;
+      position: relative;
+      background-color: #fff;
+      .cpl-Display;
+      &:before {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .title {
+        .p_style(96px, @font28, #333333, left, 0 0 0 32px, 0);
+        /*height: 95px;
+        line-height: 96px;
+        font-size: @font28;
+        color: #000;
+        margin-left: 32px;*/
+        //border-bottom: 1px solid #e0e0e0;
+        .cpl-flex(1);
+      }
+      .stat {
+        .p_style(96px, @font28, #999999, right, 0, 0);
+        /*height: 95px;
+        line-height: 96px;
+        font-size: @font28;
+        color: #000;
+        text-align: right;*/
+        //padding-right: 32px;
+        //border-bottom: 1px solid #e0e0e0;
+        //.cpl-flex(1);
+      }
+      .goIco {
+        width: 96px;
+        height: 96px;
+        background: url('../images/ico-9.png');
+      }
+      &:active {
+        background-color: darken(#fff, 26%);
+      }
+    }
+  }
+}
+
+/*标记错单页*/
+#markWrongListPage {
+  height: 100%;
+  .markWrongListPageCont {
+    height: calc(~"100%" - 112 * 1px);
+    overflow: auto;
+    .touch;
+    .captionDate {
+      height: 64px;
+      text-align: center;
+      line-height: 64px;
+      font-size: @font28;
+      color: #00bcd4;
+      background: #f4f4f4;
+    }
+    .title {
+      height: auto;
+      line-height: 48px;
+      padding: 8px 0px;
+      font-size: @font28;
+      color: rgba(0, 0, 0, 0.56);
+      background: #f4f4f4;
+      .cpl-Display;
+      border-top: 1px solid #b5b5b5;
+      > span {
+        &:first-child {
+          width: calc(~"100%" - 24 * 1px);
+          padding-left: 24px;
+          text-align: left;
+          .cpl-flex(1);
+          word-break: break-all;
+        }
+        &:nth-child(2) {
+          text-align: center;
+          .cpl-flex(1);
+          word-break: break-all;
+        }
+        &:nth-child(3) {
+          width: calc(~"100%" - 100 * 1px);
+          padding-right: 100px;
+          text-align: right;
+          .cpl-flex(2);
+          word-break: break-all;
+        }
+      }
+    }
+    .conList {
+      position: relative;
+      height: calc(~"100%" - 227 * 1px);
+      overflow: auto;
+      .touch;
+      border: 1px solid #b5b5b5;
+      background: #fff;
+      .touch;
+      > li {
+        line-height: 48px;
+        padding: 24px 0px;
+        font-size: @font28;
+        color: rgba(0, 0, 0, 0.78);
+        border-bottom: 1px solid #e0e0e0;
+        .cpl-Display;
+        &:last-child {
+          border-bottom: none;
+        }
+        > p {
+          &:first-child {
+            width: calc(~"100%" - 24 * 1px);
+            padding-left: 24px;
+            text-align: left;
+            .cpl-flex(2);
+            word-break: break-all;
+          }
+          &:nth-child(2) {
+            text-align: center;
+            .cpl-flex(2);
+            word-break: break-all;
+          }
+          &:nth-child(3) {
+            width: calc(~"100%" - 24 * 1px);
+            padding-right: 24px;
+            text-align: right;
+            .cpl-flex(3);
+            word-break: break-all;
+          }
+        }
+        .chooseBox {
+          width: 48px;
+          height: 48px;
+          margin: 0px 32px 0px 16px;
+          position: relative;
+          > div {
+            width: 32px;
+            height: 32px;
+            border-radius: 5px;
+            border: 1px solid #737373;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            > div {
+              width: 100%;
+              height: 100%;
+              border-radius: 5px;
+              position: absolute;
+              /*top: 9px;
+              left: 9px;*/
+              display: none;
+              background: url("../images/ico_59.png") center no-repeat;
+            }
+          }
+          &.active, &:active {
+            > div {
+              border: 1px solid #00bcd4;
+              > div {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+      .waitPopupLayer {
+        height: 100%;
+        .waitLogo {
+          bottom: 0;
+          top: calc(~"50%" - 178 * 1px + 120 * 1px);
+        }
+        .wait {
+          top: calc(~"50%" - 120 * 1px)
+        }
+      }
+    }
+    .footerBtn {
+      height: 83px;
+      line-height: 95px;
+      border: 1px solid #bdbdbd;
+      border-top: none;
+      background: #fafafa;
+      padding-top: 12px;
+      .sureBtn {
+        width: 592px;
+        height: 72px;
+        border-radius: 4px;
+        line-height: 72px;
+        text-align: center;
+        background-color: #fe5722;
+        font-size: @font28;
+        color: #fff;
+        margin: 0px auto;
+        &:active {
+          background-color: darken(#fe5722, 6%);
+        }
+        &.active {
+          .disabled;
+          background-color: #969696;
+        }
+      }
+    }
+  }
+}
+
+/*国家地区页*/
+#nationalAreaPage, #userLevelPage {
+  height: 100%;
+  .nationalAreaPageCont {
+    height: calc(~"100%" - 112 * 1px);
+    overflow: auto;
+    .touch;
+    background-color: #f5f5f5;
+    .nationalAreaBox {
+      height: auto;
+      overflow: hidden;
+      background-color: #FFFFFF;
+      border-top: 1px solid #bdbdbd;
+      border-bottom: 1px solid #bdbdbd;
+      .nationalAreaLi {
+        height: 96px;
+        position: relative;
+        .cpl-Display;
+        &:before {
+          position: absolute;
+          content: "";
+          bottom: 0;
+          left: 0;
+          right: 0;
+          border-bottom: 1px solid #e0e0e0;
+        }
+        &:last-child:before {
+          display: none;
+        }
+        .ico {
+          width: 104px;
+          height: 96px;
+        }
+        .title {
+          height: 95px;
+          line-height: 96px;
+          font-size: @font28;
+          color: #333333;
+          margin-left: 40px;
+          //border-bottom: 1px solid #e0e0e0;
+          .cpl-flex(1);
+        }
+        .radioBox {
+          float: right;
+          width: 112px;
+          height: 96px;
+          .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #737373;
+            margin: 32px auto;
+          }
+          &.active {
+            .circle {
+              border: 1px solid #00bcd4;
+              .disc {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #00bcd4;
+                margin: 7px auto;
+              }
+            }
+          }
+          &:active {
+            .circle {
+              border: 1px solid #00bcd4;
+              .disc {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #00bcd4;
+                margin: 7px auto;
+              }
+            }
+            background-color: darken(#fff, 26%);
+          }
+        }
+      }
+      /*.info:last-child {
+        .title {
+          border-bottom: 0;
+        }
+        .stat {
+          border-bottom: 0;
+        }
+      }*/
+    }
+
+  }
+}
+
+/*断网提示层，统一弹窗*/
+.noNetPopupLayer, .errorPopupLayer {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  .noNetBox, .errorBox {
+    .popUpLayerStyle(624, 192);
+    height: auto;
+    border-radius: 12px;
+    .title {
+      //height: 95px;
+      //line-height: 95px;
+      border-bottom: 1px solid #bdbdbd;
+      text-align: center;
+      color: #2c2c2c;
+      font-size: @font32;
+      line-height: 48px;
+      padding: 24px 32px;
+    }
+    .true {
+      height: 96px;
+      line-height: 96px;
+      text-align: center;
+      color: #ff5722;
+      font-size: @font32;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      &:active {
+        background-color: darken(#fff, 12%);
+      }
+    }
+  }
+}
+
+/*弹性滑动，容器*/
+.slidingBox {
+  height: @height - 112px
+}
+
+/*外部通用提醒层开始*/
+.errorLayer, .newErrorLayer {
+  display: none;
+  width: @width * 1px;
+  height: @height * 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  .errorBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 592px;
+    margin-left: -296px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 6px 3px #c2c2c2;
+    .tit {
+      .p_style(96px, @font32, #ff5722, left, none, 48px 48px 0);
+      .overHide;
+    }
+    .cont {
+      .p_style(48px, @font28, #ff7722, left, none, 64px 48px 24px);
+      height: auto;
+      overflow: auto;
+      max-height: (@height * 0.75 - 312) * 1px;
+    }
+    .btnBox {
+      height: 72px;
+      overflow: hidden;
+      padding: 32px;
+      .db_btn {
+        .buttonStyle2(176px, 72px, #fff, @font28, #404040, none, none);
+        border-radius: 8px;
+        &.true {
+          float: right;
+          color: #ff5722;
+          &:active {
+            color: #fff;
+            background-color: #ff5722;
+          }
+        }
+        &.cancel {
+          float: right;
+          color: #404040;
+          &:active {
+            /*color: #fff;*/
+            background-color: #c2c2c2;
+          }
+        }
+      }
+      .single_btn {
+        display: none;
+        height: 72px;
+        line-height: 72px;
+        //border-radius: 8px;
+        border-radius: 72px;
+        background-color: @color;
+        text-align: center;
+        font-size: @font28;
+        color: #fff;
+        &:active {
+          background-color: darken(@color, 12%);
+        }
+      }
+      &.active {
+        .true {
+          float: right;
+          color: #fff;
+          background-color: #ff5722;
+          &:active {
+            background-color: darken(#ff5722, 12%);
+          }
+        }
+        .cancel {
+          display: none;
+        }
+      }
+      &.single {
+        .db_btn {
+          display: none;
+        }
+        .single_btn {
+          display: block;
+        }
+      }
+    }
+    .clock {
+      overflow: hidden;
+      display: none;
+      .contq {
+        .p_style(48px, @font28, #ff7722, left, none, 24px 48px 24px);
+        height: auto;
+        overflow: auto;
+        max-height: (@height * 0.75 - 312) * 1px;
+      }
+    }
+  }
+}
+
+.blackBarPage {
+  .disabledStyle();
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 99999999;
+  display: none;
+  .SuccessfulHints {
+    width: 224px;
+    padding: 8px 16px;
+    position: absolute;
+    line-height: 48px;
+    text-align: center;
+    background-color: #646568;
+    border-radius: 5px;
+    color: #FFFFFF;
+    bottom: 272px;
+    font-size: @font28;
+    left: ((@width - 224)/2)*1px;
+    display: block;
+  }
+}
+/*外部通用提醒层结束*/
+/*********************************************************************************************/
+
+/*********************************************************************************************/
+/*底部长按钮开始*/
+.singleBtn {
+  clear: both;
+  .buttonStyle2(auto, 72px, @color, @font28, #fff, 0 64px, none);
+  &.active {
+    background-color: #c2c2c2;
+    .disabledStyle;
+  }
+}
+
+/*底部长按钮结束*/
+/*图片裁剪页开始*/
+#subImgCutForLogoPage, #subImgCutForPurchaseLogoPage,#subImgCutForBillToPage {
+  background-color: #fff;
+  height: (@height - 112) * 1px;
+  .subImgCutPage {
+    overflow: hidden;
+    height: (@height - 312) * 1px;
+    .touch;
+    background-color: #000;
+  }
+  .footer {
+    background-color: #000;
+    width: 100%;
+    height: 200px;
+    .cpl-Display;
+    .btn {
+      width: 176px;
+      height: 72px;
+      margin: 64px auto;
+      color: #fff;
+      font-size: @font32;
+      text-align: center;
+      line-height: 72px;
+      border-radius: 8px;
+      &:active {
+        /*background-color: lighten(#000,12%);*/
+        background-color: @color;
+      }
+      &:first-child:active {
+        background-color: #ff5722;
+      }
+    }
+  }
+}
+/*图片裁剪页结束*/
+
+//复选框
+.check_view_state + label {
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.check_view_state + label {
+  background-color: #ffffff;
+  border: 1px solid #666666;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.check_view_state:checked + label {
+  background: url("../Limages/checkBox.png") no-repeat center;
+  background-size: 100%;
+  border: 1px solid #00bcd4;
+}

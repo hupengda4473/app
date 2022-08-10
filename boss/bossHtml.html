@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=720,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet/less" href="less/page.less"/>
+    <link rel="stylesheet/less" href="less/style.less"/>
+    <link rel="stylesheet" type="text/css" href="css/waitPage.css"/>
+    <script>
+        less = {
+            env: "development",
+        }
+    </script>
+    <script type="text/javascript" src="jsLib/less-1.7.0.min.js"></script>
+    <script type="text/javascript" src="jsLib/jquery-2.1.3.js"></script>
+    <script>window.PointerEvent = void 0</script>
+    <script type="text/javascript" src="jsLib/iscroll.js"></script>
+    <!--工具-->
+    <script src="jsLib/jquery.tool.xwp.js"></script>
+    <!--裁图-->
+    <script src="jsLib/iscroll-zoom.js"></script>
+    <script src="jsLib/lrz.all.bundle.js"></script>
+    <script src="jsLib/hammer.js"></script>
+    <script src="jsLib/jquery.photoClip.js"></script>
+    <!--去click300毫秒延时-->
+    <script src="jsLib/fastclick.js"></script>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/date.css"/>
+    <script type="text/javascript" src="jsLib/date.js"></script>
+    <script src="js/dateRtx.js"></script><!--自定义时间插件-->
+    <link rel="stylesheet" type="text/css" href="css/common_dateTime.css"/>
+    <script type="text/javascript" src="jsLib/date_dateTime.js"></script>
+    <script>
+        Number.prototype.toFixed = function (d) {
+            var s = Math.round(this * 1000000) / 1000000 + "";
+            if (!d) d = 0;
+            if (s.indexOf(".") == -1) s += ".";
+            s += new Array(d + 1).join("0");
+            if (new RegExp("^(-|\\+)?(\\d+(\\.\\d{0," + (d + 1) + "})?)\\d*$").test(s)) {
+                var s = "0" + RegExp.$2, pm = RegExp.$1, a = RegExp.$3.length, b = true;
+                if (a == d + 2) {
+                    a = s.match(/\d/g);
+                    if (parseInt(a[a.length - 1]) > 4) {
+                        for (var i = a.length - 2; i >= 0; i--) {
+                            a[i] = parseInt(a[i]) + 1;
+                            if (a[i] == 10) {
+                                a[i] = 0;
+                                b = i != 1;
+                            } else break;
+                        }
+                    }
+                    s = a.join("").replace(new RegExp("(\\d+)(\\d{" + d + "})\\d$"), "$1.$2");
+
+                }
+                if (b) s = s.substr(1);
+                return (pm + s).replace(/\.$/, "");
+            }
+            return this + "";
+        };
+        Date.prototype.format = function (fmt) {
+            let o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (let k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+        /*console.log(new Date(1606379756309).format("yyyy-MM-dd hh:mm:ss"))
+                console.log(new Date(1606379756309).format("yyyy-M-d h:m:s.S"))
+                console.log(new Date(1606379756309).format("yyyy年M月d日 h时m分秒.S"))*/
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            //标记错单
+            $('#markWrongListPage').find('.kdsBtn').dateTime({theme: "date"}, function (data, fun) {
+                if (fun) {
+                    fun();
+                }
+                var markWrongListPage = $('#markWrongListPage');
+                markWrongListPage.find('.kdsBtn').data('time', data);
+                markWrongListPage.find('.kdsBtn span').html(data);
+                markWrongListPage.find('.captionDate').html(data);
+            });
+            //异常订单
+            $('#subAbnormalOrderPage').find('.dataBtn').date({theme: "datetime", showFuture: true}, function (data) {
+                var start = data.split(' ')[0];
+                var end = data.split(' ')[1];
+                var subAbnormalOrderPage = $('#subAbnormalOrderPage');
+                subAbnormalOrderPage.find('.dataBtn').data('start', start).data('end', end);
+                var i = 1;
+                if (new Date(end).getTime() >= new Date(start).getTime()) {
+                    subAbnormalOrderPage.find('.date').html(start.split('-')[0] + '.' + start.split('-')[1] + '.' + start.split('-')[2] + '' + '——' + end.split('-')[0] + '.' + end.split('-')[1] + '.' + end.split('-')[2] + '');
+                    console.log(start, end);
+                } else {
+                    bossJS.showOrdinaryBlackBar('<span class="language" data-language="greaterThan">结束时间应大于开始时间</span>');
+                }
+            });
+        });
+    </script>
+    <!--iphoneX-->
+    <link rel="stylesheet" type="text/css" href="css/iphoneXstyle.css"/>
+</head>
+<body>
+<!--等待层开始-->
+<div class="waitPopupLayer" style="display: none;">
+    <img src="images/waitLogo.gif" alt="wait" class="waitLogo"/>
+    <p class="wait language" data-language="loading">正在努力加载中···</p>
+</div>
+
+<div class="partPopupLayer" style="display: none;">
+    <img src="images/waitLogo.gif" alt="wait" class="waitLogo"/>
+    <p class="wait language" data-language="loading">正在努力加载中···</p>
+</div>
+
+<!--时间插件盒子开始-->
+<div id="datePlugin"></div>
+<div id="datePlugin2"></div>
+<div id="datePlugin_dateTime"></div>
+<!--时间插件盒子结束-->
+
+<!--等待层结束-->
+
+<!--报错弹窗开始-->
+<div class="errorPopupLayer" style="display: none;">
+    <div class="errorBox">
+        <p class="title language" data-language="">报错信息，报错信息，报错信息</p>
+        <div class="true language" data-language="true" data-function="errorPopupLayerTrue">确定</div>
+    </div>
+</div>
+<!--报错弹窗结束-->
+<!--弹窗提示 两个按钮-->
+<div class="layer errorLayer errorPopupLayerTwoBtn" style="display: none;">
+    <div class="errorBox">
+        <!--<p class="tit">提示</p>-->
+        <p class="cont">这里是错误信息，这里是错误信息，这里是错误信息，这里是错误信息。</p>
+        <div class="btnBox active">
+            <div class="db_btn true language" data-language="yes" style="display: block">确定</div>
+            <div class="db_btn cancel language" data-language="cancel" style="display: block"
+                 data-function="errorPopupLayerTwoBtnCancelBtn">取消
+            </div>
+        </div>
+    </div>
+</div>
+<!--弹窗提示 两个按钮-->
+
+<!--断网提示条开始-->
+<div class="noNetPopupLayer" style="display: none;">
+    <div class="noNetBox">
+        <p class="title language" data-language="netWrong">已断开网络链接，请检查网络设置。</p>
+        <div class="true language" data-language="true" data-function="noNetPopupLayerTrue">确定</div>
+    </div>
+</div>
+<!--断网提示条结束-->
+
+<!--更新提示弹窗 一个按钮-->
+<div class="layer errorLayer updatePromptLayer" style="display: none;">
+    <div class="errorBox">
+        <!--<p class="tit">提示</p>-->
+        <p class="cont">这里是错误信息，这里是错误信息，这里是错误信息，这里是错误信息。</p>
+        <div class="btnBox active">
+            <div class="single_btn" style="display: block">确定</div>
+        </div>
+    </div>
+</div>
+<!--更新提示弹窗 一个按钮-->
+<!------------------------------------------------------------------------------------------------------------------->
+<!--更新提示弹窗 两个按钮-->
+<div class="layer errorLayer specialUpdatePromptLayer" style="display: none;">
+    <div class="errorBox">
+        <!--<p class="tit">提示</p>-->
+        <p class="cont">这里是错误信息，这里是错误信息，这里是错误信息，这里是错误信息。</p>
+        <div class="btnBox active">
+            <div class="db_btn true" style="display: block">确定</div>
+            <div class="db_btn cancel" style="display: block" data-function="specialUpdatePromptLayerCancelBtn">取消</div>
+        </div>
+    </div>
+</div>
+<!--更新提示弹窗 两个按钮-->
+
+<!--登陆页-->
+<div class="main-page" id="mainRegisterPage" style="display:none;">
+    <div class="mainRegisterPageCont">
+        <div class="areaBtn" data-function="mainRegisterPageAreaBtn">
+            <div class="ico" data-function="mainRegisterPageAreaBtn"></div>
+            <p class="area" data-function="mainRegisterPageAreaBtn">中国</p>
+        </div>
+        <img src="images/BossApp_Icon.png" alt="logo" class="logo"/>
+        <div class="userNameBox">
+            <div class="areaCode areaNumber" data-function="toChooseCountryRegion">账号</div>
+            <div class="jsInputBox" data-function="jsInputBox">
+                <input type="text" class="userName"/>
+            </div>
+        </div>
+        <div class="jsInputBox passwordBox" data-function="jsInputBox">
+            <input type="password" class="password"/>
+        </div>
+        <div class="rememberPwdBox">
+            <div class="buttonBox">
+                <div class="register language" data-language="Registered" data-function="mainRegisterPageRegistered">
+                    注册
+                </div>
+                <div>|</div>
+                <div class="retrieve language" data-language="Recover_Password"
+                     data-function="mainRegisterPageRecoverPassword">找回密码
+                </div>
+            </div>
+            <p class="rememberPwd language" data-language="keepPassword" data-function="mainRegisterPageRememberPwdBox">
+                记住密码</p>
+            <div class="checkIco" data-function="mainRegisterPageRememberPwdBox"></div>
+        </div>
+
+        <div class="jsInputBoxNew">
+            <input type="input" class="passwordNew" placeholder="验证码"/>
+            <div class="getVerificationCodeNew">获取验证码</div>
+        </div>
+        <div class="registerBtnNew language" data-language="main_login" data-function="mainRegisterPageRegisterBtn">登录
+        </div>
+    </div>
+    <div class="maskLayerStyle" style="display: none;" data-function="mainRegisterPageMaskLayerStyle"></div>
+    <div class="pwdWrongPopupLayer">
+        <p class="title language" data-language="passWordMistake">账号或密码错误，请重新输入。</p>
+        <div class="true language" data-language="yes" data-function="mainRegisterPagePwdWrongPopupLayerTrue">确定</div>
+    </div>
+    <div class="chooseAreaPopupLayer">
+        <p class="title language" data-language="choose_server">请选择服务器</p>
+        <ul class="areaList">
+            <li class="areaInfo" data-function="mainRegisterPageAreaInfo">
+                <p class="cont" data-function="mainRegisterPageAreaInfo">中国</p>
+            </li>
+            <li class="areaInfo active" data-function="mainRegisterPageAreaInfo">
+                <p class="cont" data-function="mainRegisterPageAreaInfo">中国</p>
+            </li>
+        </ul>
+    </div>
+    <ul class="setLanguagePopupLayer" style="display: none;">
+        <li class="languageInfo" data-name="0" data-function="changeLangauge">
+            <p class="language" data-function="changeLangauge">简体中文</p>
+            <div class="checkedIco" data-function="changeLangauge"></div>
+        </li>
+        <li class="languageInfo" data-name="1" data-function="changeLangauge">
+            <p class="language" data-function="changeLangauge">English</p>
+            <div class="checkedIco" data-function="changeLangauge"></div>
+        </li>
+    </ul>
+</div>
+<!--登陆页-->
+
+<!--店况页开始-->
+<div class="main-page" id="shopStatePage" style="display: none;">
+    <div class="mainIndexPageCont">
+        <div class="topBox">
+            <div class="titleBox">
+                <div class="backBtn" data-function="backButton"></div>
+                <p class="title">所选店铺名称<span>（在线）</span></p>
+                <div class="refreshBtn" data-function="mainIndexPageRefreshBtn"></div>
+            </div>
+            <div class="GoAheadAndRenewTheFee CueBar" data-function="shopStatePageGoAheadAndRenewTheFee">
+                <div class="ico" data-function="shopStatePageGoAheadAndRenewTheFee"></div>
+                <p class="content" data-function="shopStatePageGoAheadAndRenewTheFee">订阅BOSS2018-12-12到期，前去续费</p>
+                <div class="goIco" data-function="shopStatePageGoAheadAndRenewTheFee"></div>
+            </div>
+            <!--<div class="Bindings CueBar">
+                <div class="ico"></div>
+                <p class="content">未绑定银行卡，前去绑定</p>
+                <div class="goIco"></div>
+            </div>-->
+            <div class="todayTransBox" data-function="todayTrans">
+                <p class="dayMoneyTitle language" data-language="dayMoneyTitle" data-function="todayTrans">今日流水</p>
+                <p class="dayMoney" data-function="todayTrans">6982.54</p>
+            </div>
+            <!--<div class="sumMoneyBox">
+                <p class="title language" data-language="sumMoneyTitle">总营业额（元）</p>
+                <p class="money">356000000.00</p>
+            </div>-->
+            <div class="preDayMoneyBox" data-function="yesterdayTrans">
+                <p class="title language" data-language="predayMoneyTitle" data-function="yesterdayTrans">今日营业额（元）</p>
+                <p class="money" data-function="yesterdayTrans">3560.00</p>
+            </div>
+        </div>
+        <div class="mainIndexPageContContent">
+            <ul class="functionBox">
+                <li class="functionBoxList">
+                    <div class="functionBoxListItem language" data-language="device"
+                         data-function="subAbnormalOrderPage">异常订单
+                    </div>
+                    <div class="functionBoxListItem ReportForm language" data-language="ReportForm"
+                         data-function="mainIndexPageMarkingWrongOrders">标记错单
+                    </div>
+                    <div class="functionBoxListItem personnel language" data-language="personnel"
+                         data-function="userPage">人员
+                    </div>
+                </li>
+                <li class="functionBoxList">
+                    <div class="functionBoxListItem TheKitchen language" data-language="TheKitchen"
+                         data-function="subRestaurantTheKitchenNew">后厨
+                    </div>
+                    <div class="functionBoxListItem Member language" data-language="vip"
+                         data-function="mainIndexPageMember">会员
+                    </div>
+                    <div class="functionBoxListItem WeeklyWater language" data-language="WeeklyWater"
+                         data-function="mainIndexPageChart">周流水
+                    </div>
+                </li>
+            </ul>
+            <ul class="bottomList">
+                <li class="itemBox">
+                    <p class="topTitle language" data-language="Finance">财务</p>
+                    <ul class="item">
+                        <li class="todayBusiness" data-function="mainIndexPageTodayTurnover">
+                            <p class="title language" data-language="Today_s_turnover"
+                               data-function="mainIndexPageTodayTurnover">今日营业</p>
+                            <p class="content" data-function="mainIndexPageTodayTurnover">3300.33</p>
+                        </li>
+                        <li class="averagePerGuestSpending" data-function="mainIndexPagePerCapitaConsumption">
+                            <p class="title language" data-language="todayPerCapitaConsumption"
+                               data-function="mainIndexPagePerCapitaConsumption">今日人均消费</p>
+                            <p class="content" data-function="mainIndexPagePerCapitaConsumption">3300.33</p>
+                        </li>
+                        <li class="waterThisWeek" data-function="mainIndexPageWaterThisWeek">
+                            <p class="title language" data-language="Water_this_week"
+                               data-function="mainIndexPageWaterThisWeek">本周流水</p>
+                            <p class="content" data-function="mainIndexPageWaterThisWeek">3300.33</p>
+                        </li>
+                        <li class="tableTurnoverRate" data-function="mainIndexPageTurnOver">
+                            <p class="title language" data-language="tableTurnoverRate"
+                               data-function="mainIndexPageTurnOver">翻台率</p>
+                            <p class="content" data-function="mainIndexPageTurnOver">3300.33</p>
+                        </li>
+                    </ul>
+                </li>
+                <li class="itemBox" style="display:block;">
+                    <p class="topTitle">设备</p>
+                    <ul class="item">
+                        <li class="wrong" data-function="mainIndexPageDeviceStatus">
+                            <p class="title" data-function="mainIndexPageDeviceStatus">KDS状态</p>
+                            <p class="content" data-function="mainIndexPageDeviceStatus">异常</p>
+                        </li>
+                        <li data-function="mainIndexPageDeviceStatus">
+                            <p class="title" data-function="mainIndexPageDeviceStatus">打印机状态</p>
+                            <p class="content" data-function="mainIndexPageDeviceStatus">正常</p>
+                        </li>
+                    </ul>
+                </li>
+                <li class="itemBox">
+                    <p class="topTitle language" data-language="SalesAndInventory">销售与库存</p>
+                    <ul class="item">
+                        <li class="salesOfDishes" data-function="mainIndexPageCpSalesVolume">
+                            <p class="title language" data-language="FoodSales"
+                               data-function="mainIndexPageCpSalesVolume">菜品销量</p>
+                            <p class="content" data-function="mainIndexPageCpSalesVolume">1200.00</p>
+                        </li>
+
+                        <li class="rawMaterialWasteRate" data-function="reportFormPageWasteRate">
+                            <p class="title language" data-language="Raw_material_waste_rate"
+                               data-function="reportFormPageWasteRate">原料浪费率</p>
+                            <p class="content" data-function="reportFormPageWasteRate">3%</p>
+                            <div class="Filler"></div>
+                        </li>
+                        <li class="purchaseOfTotalAmount" data-function="reportFormPurchaseAmount">
+                            <p class="title language" data-language="TotalPurchasesThisWeek"
+                               data-function="reportFormPurchaseAmount">
+                                本周采购总额</p>
+                            <p class="content" data-function="reportFormPurchaseAmount">$999.99</p>
+                        </li>
+                        <li class="todaySFoodConsumption" data-function="reportFormPageWarning">
+                            <p class="title language" data-language="TodaySMaterialProcurementAlarm"
+                               data-function="reportFormPageWarning">今日物料采购报警</p>
+                            <p class="content" data-function="reportFormPageWarning">1200.00</p>
+                        </li>
+                        <!--<li class="todaySFoodConsumption" data-function="reportFormPageTodaySFoodConsumption">
+                            <p class="title language" data-language="TodaySMaterialProcurementAlarm" data-function="reportFormPageTodaySFoodConsumption">今日食材用量</p>
+                            <p class="content" data-function="reportFormPageTodaySFoodConsumption">1200.00</p>
+                        </li>-->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p class="refreshRemind" style="display: none;">正在为您更新数据，请稍等······</p>
+    <div class="maskLayerStyle" data-function="mainIndexPageClickMaskLayerStyle" style="display:none"></div>
+    <div class="footer">
+        <ul class="footerList">
+            <li class="footerBtn restaurantBtn language active" data-language="Restaurant">
+                餐厅
+            </li>
+            <li class="footerBtn findBtn language" data-language="Find" data-function="findBtn">
+                发现
+            </li>
+            <li class="footerBtn serviceBtn language" data-language="Service" data-function="serviceBtn">
+                服务
+            </li>
+            <li class="footerBtn accountBtn language" data-language="Account" data-function="accountBtn">
+                账户
+            </li>
+        </ul>
+    </div>
+</div>
+<!--店况页结束-->
+
+<!--发现页-->
+<div class="main-page" id="discoveryPage" style="display:none">
+    <header>
+        <div class="backBtn" data-function="backButton" style="display:none;"></div>
+        <p class="title"><span class="language" data-language="Find">发现</span></p>
+        <div class="qrcodeBtn" data-function="qrcodeBtn"></div>
+    </header>
+    <div class="discoveryPageCont">
+        <ul class="navList">
+            <li class="navBtn language active" data-language="purchase" data-function="discoveryPagePurchase">采购</li>
+            <li class="navBtn language" data-language="news" data-function="discoveryPageNews">消息</li>
+            <li class="navBtn language" data-language="advanced" data-function="discoveryPageAdvanced">高级</li>
+        </ul>
+        <!--采购-->
+        <div class="contentPurchase slideBox active">
+            <!--<ul class="contentList">
+                <li class="contentListBtn reportForm" data-function="discoveryPageReportForm">
+                    <p class="language" data-language="ReportForm" data-function="discoveryPageReportForm">报表</p>
+                </li>
+                <li class="contentListBtn takeInventory" data-function="discoveryPageTakeInventory">
+                    <p class="language" data-language="takeInventory" data-function="discoveryPageTakeInventory">盘存</p>
+                </li>
+                <li class="contentListBtn purchasing" data-function="discoveryPagePurchasing">
+                    <p class="language" data-language="purchaseStorage" data-function="discoveryPagePurchasing">采购入库</p>
+                </li>
+                <li class="contentListBtn setUp" data-function="discoveryPageSetUp">
+                    <p class="language" data-language="setUp" data-function="discoveryPageSetUp">设置</p>
+                </li>
+            </ul>-->
+            <ul class="discoveryListBox">
+                <!--<li class="discoveryList" data-function="mainIndexPageMarkingWrongOrders">
+                    <div class="icoInfo" data-function="mainIndexPageMarkingWrongOrders"></div>
+                    <p class="name language" data-language="Marking_wrong_orders" data-function="mainIndexPageMarkingWrongOrders">标记错单</p>
+                </li>-->
+                <!-- <li class="discoveryList" data-function="discoveryPageReportForm">
+                     <div class="icoInfo" data-function="discoveryPageReportForm"></div>
+                     <p class="name language" data-language="ReportForm" data-function="discoveryPageReportForm">报表</p>
+                 </li>-->
+
+                <li class="discoveryList receipt" data-function="discoveryPageReceipt">
+                    <div class="icoInfo _disable" data-function="discoveryPageReceipt"></div>
+                    <p class="name language _disable" data-language="Receipt" data-function="discoveryPageReceipt">
+                        收货</p>
+                </li>
+                <li class="discoveryList PurchaseOrder" data-function="discoveryPagePurchaseOrder">
+                    <div class="icoInfo _disable" data-function="discoveryPagePurchaseOrder"></div>
+                    <p class="name language _disable" data-language="PurchaseOrder"
+                       data-function="discoveryPagePurchaseOrder">采购单</p>
+                </li>
+                <li class="discoveryList PurchasingHistory" data-function="discoveryPagePurchasingHistory">
+                    <div class="icoInfo _disable" data-function="discoveryPagePurchasingHistory"></div>
+                    <p class="name language _disable" data-language="PurchasingHistory"
+                       data-function="discoveryPagePurchasingHistory">采购历史</p>
+                </li>
+                <li class="discoveryList PurchasingReview" data-function="discoveryPagePurchasingReview">
+                    <div class="icoInfo _disable" data-function="discoveryPagePurchasingReview"></div>
+                    <p class="name language _disable" data-language="PurchaseOrderReview"
+                       data-function="discoveryPagePurchasingReview">采购单审核</p>
+                </li>
+                <li class="discoveryList takeInventory" data-function="discoveryPageTakeInventory">
+                    <div class="icoInfo" data-function="discoveryPageTakeInventory"></div>
+                    <p class="name language" data-language="takeInventory" data-function="discoveryPageTakeInventory">
+                        盘存</p>
+                </li>
+                <li class="discoveryList setUp" data-function="discoveryPageSetUp">
+                    <div class="icoInfo" data-function="discoveryPageSetUp"></div>
+                    <p class="name language" data-language="setUp" data-function="discoveryPageSetUp">设置</p>
+                </li>
+                <li class="discoveryList management" data-function="discoveryPageSetUp" style="display: none">
+                    <div class="icoInfo" data-function="discoveryPageSetUp"></div>
+                    <p class="name language" data-language="informationSettings" data-function="discoveryPageSetUp">餐厅信息设置</p>
+                </li>
+                <li class="discoveryList Function_sharing" data-function="discoveryPageFunctionSharing">
+                    <div class="icoInfo" data-function="discoveryPageFunctionSharing"></div>
+                    <p class="name language" data-language="Function_sharing"
+                       data-function="discoveryPageFunctionSharing">功能分享</p>
+                </li>
+                <li class="discoveryList purchaseStorage" data-function="discoveryPagePurchasing">
+                    <div class="icoInfo" data-function="discoveryPagePurchasing"></div>
+                    <p class="name language" data-language="purchaseStorage" data-function="discoveryPagePurchasing">
+                        采购入库</p>
+                </li>
+                <li class="discoveryList restaurant" data-function="restaurantInformationSettings">
+                    <div class="icoInfo" data-function="restaurantInformationSettings"></div>
+                    <p class="name language" data-language="informationSettings" data-function="restaurantInformationSettings">
+                        餐厅信息设置</p>
+                </li>
+            </ul>
+        </div>
+        <!--消息-->
+        <div class="contentNews slideBox">
+            <div class="remind">
+                <p class="time">11-24 22:22</p>
+                <div class="tips">
+                    <img src="" alt="">
+                    <div class="boom">
+                        <p class="title">这里是一些文字消息，这里是一些文字
+                            消息这里是一些文字消息这里是一些文
+                            字消息这里是一些文字消息这里是一些
+                            文字消息</p>
+                    </div>
+                </div>
+            </div>
+            <div class="remind">
+                <p class="time">11-24 22:22</p>
+                <div class="tips">
+                    <img src="" alt="">
+                    <div class="boom">
+                        <p class="title">这里是一些文字消息，这里是一些文字
+                            消息这里是一些文字消息这里是一些文
+                            字消息这里是一些文字消息这里是一些
+                            文字消息</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--高级-->
+        <div class="contentAdvanced slideBox">
+            <ul class="discoveryListBox">
+                <li class="discoveryList" id="discoveryPageContentAdvancedWrongOrder"
+                    data-function="mainIndexPageMarkingWrongOrders">
+                    <div class="icoInfo" data-function="mainIndexPageMarkingWrongOrders"></div>
+                    <p class="name language" data-language="Marking_wrong_orders"
+                       data-function="mainIndexPageMarkingWrongOrders">标记错单</p>
+                </li>
+            </ul>
+            <ul class="discoveryListBox">
+                <li class="discoveryList spaceCleaning" id="discoveryPageContentAdvancedSpaceCleaning"
+                    data-function="discoveryPageSpaceCleaning">
+                    <div class="icoInfo" data-function="discoveryPageSpaceCleaning"></div>
+                    <p class="name language" data-language="SpaceCleaning" data-function="discoveryPageSpaceCleaning">
+                        空间清理</p>
+                </li>
+            </ul>
+            <ul class="discoveryListBox">
+                <ul class="discoveryListBox" id="discoveryPageContentAdvancedRegisterInvitation"
+                    data-function="discoveryPageBossUserManagement">
+                    <li class="discoveryList" data-function="discoveryPageBossUserManagement">
+                        <div class="icoInfo accountManage" data-function="discoveryPageBossUserManagement"></div>
+                        <p class="name language" data-language="BossAccountManagement"
+                           data-function="discoveryPageBossUserManagement">老板账户管理</p>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <ul class="footerList">
+            <li class="footerBtn restaurantBtn language" data-language="Restaurant" data-function="restaurantBtn">
+                餐厅
+            </li>
+            <li class="footerBtn findBtn language active" data-language="Find">
+                发现
+            </li>
+            <li class="footerBtn serviceBtn language" data-language="Service" data-function="serviceBtn">
+                服务
+            </li>
+            <li class="footerBtn accountBtn language" data-language="Account" data-function="accountBtn">
+                账户
+            </li>
+        </ul>
+    </div>
+</div>
+<!--发现页-->
+
+<!--服务页-->
+<div class="main-page" id="servicePage" style="display:none">
+    <header>
+        <div class="backBtn" data-function="backButton" style="display: none;"></div>
+        <p class="title"><span class="language" data-language="Service">服务</span></p>
+    </header>
+    <div class="servicePageCont slideBox">
+        <ul class="serviceList">
+            <li class="serviceBtn" data-function="servicePageServiceBtn">
+                <p class="title language" data-language="Service" data-function="servicePageServiceBtn">服务</p>
+                <!--<p class="stat" data-function="">100</p>-->
+                <div class="goIco" data-function="servicePageServiceBtn"></div>
+            </li>
+            <li class="serviceBtn" data-function="servicePageWorkOrderBtn">
+                <p class="title language" data-language="Work_Order" data-function="servicePageWorkOrderBtn">工单</p>
+                <!--<p class="stat" data-function="">100</p>-->
+                <div class="goIco" data-function="servicePageWorkOrderBtn"></div>
+            </li>
+            <li class="serviceBtn" data-function="servicePageSubscribeBtn">
+                <p class="title language" data-language="Subscribe" data-function="servicePageSubscribeBtn">订阅</p>
+                <!--<p class="stat" data-function="">100</p>-->
+                <div class="goIco" data-function="servicePageSubscribeBtn"></div>
+            </li>
+            <li class="serviceBtn" data-function="servicePageContactBtn">
+                <p class="title language" data-language="Contact_Customer_Service"
+                   data-function="servicePageContactBtn">联系客服</p>
+                <!--<p class="stat" data-function="">100</p>-->
+                <div class="goIco" data-function="servicePageContactBtn"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <ul class="footerList">
+            <li class="footerBtn restaurantBtn language" data-language="Restaurant" data-function="restaurantBtn">
+                餐厅
+            </li>
+            <li class="footerBtn findBtn language" data-language="Find" data-function="findBtn">
+                发现
+            </li>
+            <li class="footerBtn serviceBtn language active" data-language="Service">
+                服务
+            </li>
+            <li class="footerBtn accountBtn language" data-language="Account" data-function="accountBtn">
+                账户
+            </li>
+        </ul>
+    </div>
+</div>
+<!--服务页-->
+
+<!--账户页-->
+<div class="main-page" id="accountPage" style="display:none">
+    <header>
+        <div class="backBtn" data-function="backButton" style="display:none"></div>
+        <p class="title"><span class="language" data-language="Account">账户</span></p>
+    </header>
+    <div class="accountPageCont slideBox">
+        <div class="headTitle">
+            <img class="needsclick" src="" data-function="accountPageImages">
+            <div class="word">
+                <div class="headName">这个是账号</div>
+                <!--<div class="preAccountNumber">老板预账号</div>-->
+                <!--<div class="perfect">待完善</div>-->
+            </div>
+        </div>
+        <!--<ul class="radiusBox">
+            <li class="radiusBtn">
+                <p class="title language" data-language="UserManagement">用户管理</p>
+                <div class="goIco"></div>
+            </li>
+        </ul>-->
+
+        <!--<ul class="radiusBox">
+            <li class="radiusBtn">
+                <p class="title language" data-language="">用户管理</p>
+                <div class="goIco"></div>
+            </li>
+        </ul>-->
+        <ul class="radiusBox">
+
+            <!--<li class="radiusBtn" data-function="accountPageWithdrawal">-->
+            <!--<p class="title language" >余额</p>-->
+            <!--<div class="goIco" data-function="accountPageWithdrawal"></div>-->
+            <!--</li>-->
+            <!--<li class="radiusBtn" data-function="accountPageDinersSMS">-->
+            <!--<p class="title language" >扣款流水</p>-->
+            <!--<div class="goIco" data-function="accountPageDinersSMS"></div>-->
+            <!--</li>-->
+            <li class="radiusBtn" data-function="accountPageBankCardBtn">
+                <p class="title language" data-language="BankCard" data-function="accountPageBankCardBtn">银行卡</p>
+                <div class="goIco" data-function="accountPageBankCardBtn"></div>
+            </li>
+            <li class="radiusBtn" data-function="accountPageWithdrawal">
+                <p class="title language" data-language="PersonalOrder" data-function="accountPageWithdrawal">个人订单</p>
+                <div class="goIco" data-function="accountPageWithdrawal"></div>
+            </li>
+            <li class="radiusBtn" data-function="accountPageDinersSMS">
+                <p class="title language" data-language="DinersSMS" data-function="accountPageDinersSMS">食客短信</p>
+                <div class="goIco" data-function="accountPageDinersSMS"></div>
+            </li>
+            <li class="radiusBtn" data-function="accountPageShopOrder">
+                <p class="title language" data-language="ShopOrder" data-function="accountPageShopOrder">店铺订单</p>
+                <div class="goIco" data-function="accountPageShopOrder"></div>
+            </li>
+            <!--<li class="radiusBtn" data-function="accountPageShopOrder">-->
+            <!--<p class="title language" >优惠卷管理</p>-->
+            <!--<div class="goIco" data-function="accountPageShopOrder"></div>-->
+            <!--</li>-->
+            <!--<li class="radiusBtn" data-function="accountPageShopOrder">-->
+            <!--<p class="title language" >群发短信</p>-->
+            <!--<div class="goIco" data-function="accountPageShopOrder"></div>-->
+            <!--</li>-->
+        </ul>
+        <ul class="radiusBox">
+            <li class="radiusBtn" data-function="accountPageSetUp">
+                <p class="title language" data-language="setUp" data-function="accountPageSetUp">设置</p>
+                <div class="goIco" data-function="accountPageSetUp"></div>
+            </li>
+            <li class="radiusBtn" data-function="accountPageAbout">
+                <p class="title language" data-language="about" data-function="accountPageAbout">关于</p>
+                <div class="goIco" data-function="accountPageAbout"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <ul class="footerList">
+            <li class="footerBtn restaurantBtn language" data-language="Restaurant" data-function="restaurantBtn">
+                餐厅
+            </li>
+            <li class="footerBtn findBtn language" data-language="Find" data-function="findBtn">
+                发现
+            </li>
+            <li class="footerBtn serviceBtn language" data-language="Service" data-function="serviceBtn">
+                服务
+            </li>
+            <li class="footerBtn accountBtn language active" data-language="Account">
+                账户
+            </li>
+        </ul>
+    </div>
+</div>
+<!--账户页-->
+
+<!--异常订单-->
+<div class="main-page" id="subAbnormalOrderPage" style="display: none;">
+    <header>
+        <div class="backBtn" data-function="backButton"></div>
+        <p class="title"><span class="language" data-language="title_6">异常订单</span><em>(3)</em></p>
+        <div class="dataBtn"></div>
+    </header>
+    <div class="bodyBox">
+        <div class="date">2018.8.2——2018.8.3</div>
+        <ul class="subAbnormalOrderPageCont">
+            <li class="info notBill" data-status="notBillOrderList" data-function="subNoCheckoutPage">
+                <!--<div class="ico" data-function="mainIndexPageTurnOver"></div>-->
+                <p class="title language" data-language="DiningUnpaidOrder" data-function="subNoCheckoutPage">
+                    正在用餐未结账订单</p>
+                <p class="stat" data-function="subNoCheckoutPage">2</p>
+                <div class="goIco" data-function="subNoCheckoutPage"></div>
+            </li>
+            <li class="info backBill" data-status="backBillOrderList" data-function="subNoCheckoutPage">
+                <!--<div class="ico" data-function="mainIndexPageTurnOver"></div>-->
+                <p class="title language" data-language="countersOrders" data-function="subNoCheckoutPage">反结订单</p>
+                <p class="stat" data-function="subNoCheckoutPage">4</p>
+                <div class="goIco" data-function="subNoCheckoutPage"></div>
+            </li>
+            <li class="info cancel" data-status="cancelLineItemOrderList" data-function="subNoCheckoutPage">
+                <!--<div class="ico" data-function="mainIndexPageTurnOver"></div>-->
+                <p class="title language" data-language="exitOrders" data-function="subNoCheckoutPage">退菜订单</p>
+                <p class="stat" data-function="subNoCheckoutPage">1</p>
+                <div class="goIco" data-function="subNoCheckoutPage"></div>
+            </li>
+            <li class="info free" data-status="cpFreeOrderList" data-function="subNoCheckoutPage">
+                <!--<div class="ico" data-function="mainIndexPageTurnOver"></div>-->
+                <p class="title language" data-language="freeOrder" data-function="subNoCheckoutPage">免单订单</p>
+                <p class="stat" data-function="subNoCheckoutPage">3</p>
+                <div class="goIco" data-function="subNoCheckoutPage"></div>
+            </li>
+            <li class="info freeTable" data-status="freeTableOrder" data-function="subNoCheckoutPage">
+                <!--<div class="ico" data-function="mainIndexPageTurnOver"></div>-->
+                <p class="title language" data-language="ClearTableRecord" data-function="subNoCheckoutPage">清台记录</p>
+                <p class="stat" data-function="subNoCheckoutPage">3</p>
+                <div class="goIco" data-function="subNoCheckoutPage"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--异常订单-->
+
+<!--标记错单页 开始-->
+<div class="main-page" id="markWrongListPage" style="display:none">
+    <header>
+        <div class="backBtn" data-function="backButton"></div>
+        <p class="title"><span class="language" data-language="Marking_wrong_orders">标记错单</span></p>
+        <div class="kdsBtn dateParent"><span class="dateShow" style="display: none;"></span></div>
+    </header>
+    <div class="markWrongListPageCont">
+        <p class="captionDate">2018-12-12</p>
+        <p class="title">
+            <span class="language" data-language="time">时间</span>
+            <span class="language" data-language="pay_type">支付方式</span>
+            <span class="language" data-language="amount">金额</span>
+        </p>
+        <ul class="conList">
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox active">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox active">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox active">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox active">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+            <li><p>12:12</p>
+                <p>现金</p>
+                <p>$10000</p>
+                <div class="chooseBox">
+                    <div>
+                        <div></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="footerBtn">
+            <div class="sureBtn language" data-language="yes" data-function="markWrongListPageSureBtn">确定</div>
+        </div>
+    </div>
+</div>
+<!--标记错单页 结束-->
+
+
+<!--<script src="../../jsLib/jquery/jquery.json.js"></script>
+<script src="../../jsLib/jquery/jquery.ajaxRequest.js"></script>
+<script src="../../jsLib/jquery/ajaxfileupload.js"></script>
+<script src="../../jsLib/interface.js"></script>
+<script src="jsLib/cloudInterface.js"></script>
+<script src="../../jsLib/setHomePath.js"></script>-->
+
+<script src="js/language.js"></script>
+<script src="js/time.js"></script>
+<script src="js/boss.js"></script>
+<script src="js/mine.js"></script>
+<script src="js/updateInfo.js"></script>
+<script>
+    /**
+     * 程序设置 开始
+     * */
+    //获得url中参数的方法
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    /**
+     * 程序设置 开始
+     * */
+    var webTest = (getQueryString('schema') != 'cordova');//web调试
+    var debug = false;
+    /**
+     * 程序设置 结束
+     * */
+    /**
+     * ——————————————————————————————————————————————————
+     * */
+    if (webTest) {
+        bossJS.init();
+        //bossJS.testInit();
+    } else {
+        var showUpdatePromptLayer = function (str, fun) {
+            var waitPopupLayer = $('.waitPopupLayer');
+            waitPopupLayer.fadeOut();
+            var updatePromptLayer = $('.updatePromptLayer');
+            updatePromptLayer.find('.cont').html(str);
+            updatePromptLayer.fadeIn();
+            var h = updatePromptLayer.find('.errorBox').height();
+            updatePromptLayer.find('.errorBox').css('margin-top', '-' + h / 2 + 'px');
+            updatePromptLayer.find('.single_btn').off('click').on('click', function () {
+                waitPopupLayer.find('.remind').html('正在更新。。。');
+                waitPopupLayer.fadeIn();
+                updatePromptLayer.fadeOut();
+                /*setTimeout(function(){
+                 if(fun){
+                 fun();
+                 }
+                 },5000);*/
+                if (fun) {
+                    fun();
+                }
+            });
+        };
+        var showSpecialUpdatePromptLayer = function (str, fun) {
+            var waitPopupLayer = $('.waitPopupLayer');
+            waitPopupLayer.fadeOut();
+            var specialUpdatePromptLayer = $('.specialUpdatePromptLayer');
+            specialUpdatePromptLayer.find('.cont').html(str);
+            specialUpdatePromptLayer.fadeIn();
+            var h = specialUpdatePromptLayer.find('.errorBox').height();
+            specialUpdatePromptLayer.find('.errorBox').css('margin-top', '-' + h / 2 + 'px');
+            specialUpdatePromptLayer.find('.true').off('click').on('click', function () {
+                waitPopupLayer.find('.remind').html('正在更新。。。');
+                waitPopupLayer.fadeIn();
+                specialUpdatePromptLayer.fadeOut();
+                /*setTimeout(function(){
+                 if(fun){
+                 fun();
+                 }
+                 },5000);*/
+                if (fun) {
+                    fun();
+                }
+            });
+        };
+      /*  var options = {
+            debug: debug,//true显示报错
+            /!**
+             * 发现有新版本时的方法
+             * *!/
+            findUpdateFunction: function (updateFunction, error, data) {
+                showUpdatePromptLayer('<span class="language" data-language="Discover_new_version_install_now">发现新版本，现在安装</span>', updateFunction);
+            },
+            /!**
+             * 切回app发现有新版本时的方法
+             * *!/
+            resumeFindUpdateFunction: function (updateFunction, error, data) {
+                showSpecialUpdatePromptLayer('<span class="language" data-language="Discover_new_version_install_now">发现新版本，现在安装</span>', updateFunction);
+            },
+            /!**
+             * 发现有需要安装版本时执行的方法
+             * *!/
+            findInstallFunction: function (installFunction, error, data) {
+                showUpdatePromptLayer('<span class="language" data-language="Found_that_a_new_version_can_be_installed_now_installed">发现可安装新版本,现在安装</span>', installFunction);
+            },
+            /!**
+             * 加载或安装失败时执行的方法
+             * *!/
+            installFailFunction: function (againFunction, error, data) {
+                showSpecialUpdatePromptLayer('<span class="language" data-language="Installation_failed_try_again">安装失败,重试</span>', againFunction);
+            },
+            /!**
+             * 断网重试弹窗
+             * *!/
+            loadingFailedFunction: function (againFunction, error, data) {
+                showSpecialUpdatePromptLayer('<span class="language" data-language="Installation_failed_please_check_the_network_and_try_again">安装失败,请检测网络后重试</span>', againFunction);
+            },
+            /!**
+             * 重启app弹窗
+             * *!/
+            restartAppFunction: function (againFunction, error, data) {
+                showUpdatePromptLayer('<span class="language" data-language="App_has_been_updated_need_to_restart_to_complete_the_update">检测到app已更新，需重启后生效</span>', againFunction);
+                //againFunction();
+            }
+        };
+        cordovaHcpSetJS.init(options, function () {
+            bossJS.init();
+            if (debug) {
+                console.log('程序初始化函数完成');
+            }
+            //清空软件图标的新消息数
+//            window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+        });*/
+    }
+    /**
+     * ——————————————————————————————————————————————————
+     * */
+</script>
+</body>
+</html>

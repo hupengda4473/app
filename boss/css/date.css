@@ -1,0 +1,9 @@
+#datescrollRtx{background: #F8F8F8;width:94%; margin:10px 3%;border: 1px solid #E0E0E0;border-radius: 4px;/*height: 120px;*/height: 288px;text-align: center;/*line-height: 40px;*/line-height: 96px;}
+#datescrollRtx div{float: left;margin-left: 30%;/*margin-top: 16px;*/padding-right: 22px;}
+#startDate,#finalDate{
+    font-size:3.2em;
+    line-height:64px;
+    height:64px;
+    padding:0 32px 0;
+    color:#666666;
+}

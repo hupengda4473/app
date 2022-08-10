@@ -1,0 +1,381 @@
+@charset "UTF-8";
+@width:`document.documentElement.clientWidth`;
+@height:`document.documentElement.clientHeight`;
+////////字体样式/////////////////////////////////////////////////////////////////////////////
+@font60:6em;
+@font48:4.8em;
+@font46:4.6em;
+@font44:4.4em;
+@font42:4.2em;
+@font40:4em;
+@font38:3.8em;
+@font36:3.6em;
+@font34:3.4em;
+@font32:3.2em;
+@font30:3em;
+@font28:2.8em;
+@font26:2.6em;
+@font24:2.4em;
+@font22:2.2em;
+@font20:2em;
+@font18:1.8em;
+@font16:1.6em;
+@font14:1.4em;
+@font10:1em;
+////////页面主颜色和背景/////////////////////////////////////////////////////////////////////
+@color:#1cb1c7;  //页面主颜色
+@bgOne:#fff;    //背景颜色
+@redColor:#ff5722;
+@url:"../images/bossAppIco.png";  //页面图标地址
+.Background(@BX,@BY){
+  background: url(@url) no-repeat @BX*1px @BY*1px;
+}
+////////弹性盒模型样式///////////////////////////////////////////////////////////////////////
+.cpl-Display{
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+.cpl-flex(@num){
+  flex: @num;
+  -webkit-box-flex: @num;
+  -moz-box-flex: @num;
+  -webkit-flex: @num;
+  -ms-flex: @num;
+}
+////////头部和底部样式///////////////////////////////////////////////////////////////////////
+/**头部样式**/
+header{
+  width: @width * 1px; height: 112px;
+  background: @color;
+  position: relative;
+  box-shadow: 0 2px 4px #9c9c9c;
+  .backBtn {
+    width: 104px;
+    height: 112px;
+    background: url("../images/bossAppIco.png") no-repeat 0 -688px;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .confirmBtn{
+    color: white;
+    line-height: 112px;
+    font-size: @font28;
+    position: absolute;
+    width: 104px;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+  }
+  .conputerImg{
+    width: 104px;
+    height: 112px;
+    background: url("../Limages/computer.png") no-repeat center;
+    position: absolute;
+    top: -3px;
+    right: 70px;
+  }
+  .orderDetailSendMail{
+    position: absolute;
+    height: 112px;
+    width: 156px;
+    right: 16px;
+    top: 42.5px;
+    color: white;
+
+    .orderDetailSendMailWord{
+      border: 1px solid white;
+      border-radius: 3px;
+      font-size: @font20;
+      text-align: center;
+    }
+  }
+  .qrcodeBtn{
+    width: 104px;
+    height: 112px;
+    background: url("../images/qrcode.png") no-repeat ;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .cancleBtn {
+    width: 130px;
+    height: 112px;
+    line-height: 112px;
+    text-align: center;
+    font-size: @font32;
+    color: #ffffff;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .title {
+    width:(@width - 288)*1px;
+    height:112px;
+    line-height: 112px;
+    text-align: center;
+    font-size: @font36;
+    color: #fff;
+    margin:auto;
+    overflow:hidden;
+  }
+  .refreshBtn {
+    width: 100px;
+    height: 112px;
+    background: url("../images/bossAppIco.png") no-repeat 0 -2024px;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .dataBtn,.kdsBtn,.countBtn{
+    width: 100px;
+    height: 112px;
+    background: url("../images/ico-5.png") no-repeat 2px 8px;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    /*&.dataBtn{
+      background: url("../images/ico-5.png") no-repeat 2px 8px;
+    }*/
+    &.kdsBtn{
+      background: url("../images/ico-3.png") no-repeat 2px 8px;
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+    &.countBtn{
+      background: url("../images/count.png") no-repeat center;
+    }
+  }
+  .editBtn,.saveBtn,.finishBtn,.addBtn,.inventoryBtn,.administrationBtn,.RecordBtn,.orderListBtn,.timeScreen,.useDetailBtn{
+    min-width: 120px;
+    height: 112px;
+    overflow:hidden;
+    //padding:0 32px;
+    line-height: 112px;
+    text-align: center;
+    font-size: @font32;
+    color: #ffffff;
+    &:active {
+      background-color: darken(@color,12%);
+    }
+    position: absolute;
+    top: 0;
+    right: 24px;
+  }
+  .timeScreen{
+    right: 0px;
+    min-width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /*  .finishBtn{
+      width: 170px;
+    }*/
+  z-index: 66;
+  /*.return{
+    width: 80px; height: 112px;
+    .Background(0,0);
+    position: absolute; top: 0; left: 0;
+  }
+  .history{
+    width: 112px; height: 112px;
+    .Background(-118,0);
+    position: absolute; top: 0; right: 0;
+  }
+  p{
+    font-size: @font44;
+    line-height: 112px;
+    text-align: center;
+  }*/
+
+}
+/**内容样式**/
+.contStyle {
+  width: @width * 1px;
+  height: 100%;
+}
+/**底部样式**/
+.li_cont_box_style(@num) {
+  .cpl-flex(@num);
+  overflow: hidden;
+  clear: both;
+}
+/*多子元素li盒子*/
+.li_style(@mar,@pad,@li_bgClr,@per,@disP) {
+  .cpl-Display;
+  margin: @mar;
+  padding: @pad;
+  overflow: hidden;
+  clear: both;
+  position: relative;
+  background-color: @li_bgClr;
+  &:active {
+    background-color: darken(@li_bgClr,@per);
+  }
+  &:before {
+    display: @disP;
+    content: "";
+    position: absolute;
+    left: 0;
+    right:0;
+    bottom: 0;
+    border-bottom: 1px solid #E0E0E0;
+  }
+  &:last-child:before {
+    display: none;
+  }
+}
+/*复杂的列（cont-line:2-3）开始*/
+.listCont {
+  background-color: #fff;
+  .li_style(none,0,#fff,6%,block);
+  position: relative;
+  .ico {
+    width: 78px;
+    height: 78px;
+    border: 1px solid #5f5c5b;
+    border-radius: 80px;
+    //.ico_style(32px 32px 32px 0);
+  }
+  .contBox {
+    .li_cont_box_style(1);
+    //border-bottom: 1px solid #e0e0e0;
+    padding: 24px 32px 24px 0;
+    overflow: hidden;
+    clear: both;
+    .left_tit {
+      .p_style(40px,@font28,#404040,left,none,none);
+      padding-bottom: 6px;
+      float: left;
+      height:auto;
+    }
+    .right_tit {
+      .p_style(40px,@font20,#707070,right,none,none);
+      line-height: normal;
+      float: right;
+    }
+    .sec_tit {
+      clear: both;
+      .p_style(40px,@font24,#707070,left,none,none);
+    }
+    .ctr_tit {
+      clear: both;
+      .p_style(40px,@font24,#707070,left,none,none);
+      height: auto;
+      .rem,.remark{
+        padding-left:16px;
+      }
+    }
+    .btm_tit {
+      .p_style(40px,@font24,#707070,left,none,none);
+    }
+  }
+  .point {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    position: absolute;
+    left: 24px;
+    top: 32px;
+    background-color: #f00;
+  }
+}
+/*复杂的列（cont-line:2-3）结束*/
+////////页面公用样式/////////////////////////////////////////////////////////////////////////
+/**页面高度样式**/
+.pageStyle(@pageHeight){
+  width: @width * 1px; height: calc(~"100%" -  @pageHeight * 1px);
+  overflow: auto;
+}
+/**按钮样式**/
+.buttonStyle(@buttonWidth,@buttonHeight){
+  width: @buttonWidth * 1px; height: @buttonHeight * 1px;
+  background: @color;
+  line-height: @buttonHeight * 1px;
+  text-align: center;
+  font-size: @font32;
+  border-radius: 8px;
+}
+.buttonStyle2(@buttonWidth,@buttonHeight,@btn_bgClr,@btn_font,@btn_clr,@mar,@pad) {
+  width: @buttonWidth;
+  height: @buttonHeight;
+  line-height: @buttonHeight;
+  background: @btn_bgClr;
+  text-align: center;
+  font-size: @btn_font;
+  color: @btn_clr;
+  border-radius: @buttonHeight;
+  margin: @mar;
+  padding: @pad;
+  &:active {
+    background-color: darken(@btn_bgClr,6%);
+  }
+}
+/**遮罩层样式**/
+.maskLayerStyle{
+  width: @width * 1px; height: 100%;
+  background: rgba(0, 0, 0, 0);
+  position: absolute; top: 0; left: 0;
+  z-index: 99;
+}
+/**弹出层样式**/
+.popUpLayerStyle(@popWidth,@popHeight){
+  width: @popWidth * 1px; height: @popHeight * 1px;
+  background: #ffffff;
+  position: absolute; top: 50%; left: 50%;
+  margin-top: -(@popHeight)/2px; margin-left: -(@popWidth)/2px;
+  z-index: 100;
+}
+/**下拉菜单样式**/
+.dropDownMenu(@dropWidth,@dropHeight){
+  width: @dropWidth * 1px; height: @dropHeight * 1px;
+  border: solid 1px #000000;
+  border-radius: 5px;
+  dt{
+    line-height: @dropHeight * 1px; padding-left: 20px;
+  }
+  dd{
+    background: #ffffff; display: none; width: @dropWidth * 1px;
+    li{
+      line-height: @dropHeight * 1px; padding-left: 20px;
+      border-bottom: solid 1px #d6d6d6;
+    }
+  }
+}
+/////////*文本*/////////////////////////////////////////////////////////////////////////
+.p_style(@p_h,@p_font,@p_clr,@p_align,@mar,@pad) {
+  height: @p_h;
+  line-height: @p_h;
+  margin: @mar;
+  padding: @pad;
+  font-size: @p_font;
+  color: @p_clr;
+  text-align: @p_align;
+}
+/**单行超出隐藏样式**/
+.overHide{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*按钮不可点击*/
+.disabledStyle {pointer-events: none;cursor: not-allowed;}
+/*兼容IOS惯性滑动效果*/
+.touch{-webkit-overflow-scrolling: touch;}

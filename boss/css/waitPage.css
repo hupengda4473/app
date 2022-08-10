@@ -1,0 +1,26 @@
+/*等待加载页*/
+.waitPopupLayer,.partPopupLayer {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+}
+.waitPopupLayer .waitLogo,.partPopupLayer .waitLogo {
+    position: absolute;
+    left: calc(50% - 89px);
+    bottom: 50%;
+}
+.waitPopupLayer .wait,.partPopupLayer .wait {
+    width: 100%;
+    height: 96px;
+    line-height: 96px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    font-size: 2.4em;
+    color: #000;
+}
